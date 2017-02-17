@@ -1,0 +1,1 @@
+<riot-logo>Riot</riot-logo>

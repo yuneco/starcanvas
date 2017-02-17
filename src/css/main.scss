@@ -1,0 +1,18 @@
+$riot-color : #fc0e49;
+
+greeting{
+    color : dimgray;
+    font-size : 2em;
+    font-family: sans-serif;
+}
+riot-logo{
+    font-family: "LatoWebRegular", "Myriad Pro", "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
+    color : white;
+    background:$riot-color;
+    display: inline-block;
+    padding : 5px 15px;
+    border-radius: 5px;
+}
+
+
