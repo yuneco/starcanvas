@@ -9,6 +9,12 @@ import browserSync from 'browser-sync';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
 
+import browserify from 'browserify';
+import babelify from 'babelify';
+import source  from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+
+
 // リソースファイルのコピー
 // ディレクトリが増えた時は追加してください
 // このタスクは自動監視では実行されません
@@ -34,17 +40,34 @@ gulp.task('cpHtml', function () {
 // js（riotタグ以外）をコンパイル・結合します
 // ES2015で書けます
 // 出力 : dist/js/main.js
-gulp.task('script', () =>
-    gulp.src('./src/js/**/*.js')
-        .pipe(plumber({
-            errorHandler: notify.onError("Error on compiling script : <%= error.message %>")
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat("main.js"))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./dist/js'))
-);
+// gulp.task('script', () =>
+//     gulp.src('./src/js/**/*.js')
+//         .pipe(plumber({
+//             errorHandler: notify.onError("Error on compiling script : <%= error.message %>")
+//         }))
+//         .pipe(sourcemaps.init())
+//         .pipe(babel())
+//         .pipe(concat("main.js"))
+//         .pipe(sourcemaps.write('./'))
+//         .pipe(gulp.dest('./dist/js'))
+// );
+gulp.task('script', ()=> {
+
+    browserify({ entries: ['src/js/index.js'] ,debug: true})
+    .transform(babelify, {presets: ["es2015"]})
+    .bundle()
+    .on('error', function(err){   //ここからエラーだった時の記述
+        notify.onError('Error on compiling es2015' + err.message);
+        console.log(err.message);
+        console.log(err.stack);
+    })
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('dist/js/'))
+})
+
 
 // sassをコンパイル・結合します
 // 出力 : dist/css/style.css
@@ -69,8 +92,8 @@ gulp.task('riot', () => {
         .pipe(plumber({
             errorHandler: notify.onError("Error on compiling riot tag : <%= error.message %>")
         }))
-        .pipe(sourcemaps.init())
         .pipe(riot())
+        .pipe(sourcemaps.init())
         .pipe(concat("tags.js"))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/js/'))

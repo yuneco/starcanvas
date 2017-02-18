@@ -1,10 +1,11 @@
 $riot-color : #fc0e49;
 
-greeting{
+[data-is="greeting"]{
     color : dimgray;
     font-size : 2em;
     font-family: sans-serif;
 }
+
 riot-logo{
     font-family: "LatoWebRegular", "Myriad Pro", "Helvetica Neue", sans-serif;
     text-transform: uppercase;

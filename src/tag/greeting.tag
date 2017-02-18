@@ -3,9 +3,9 @@
     <button onclick={ hey }>hey riot!!</button>
 
 
-hey(e) {
-    alert('hello riot !!');
-}
+    hey(e) {
+        App.hello();
+    }
 
 
 </greeting>

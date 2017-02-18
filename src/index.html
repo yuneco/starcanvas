@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/img/favicon.ico"> 
+    <link rel="shortcut icon" href="/img/favicon.ico">
     <title>Index page</title>
+    <!--
+        スタイルシートの読み込み。cssはsassから自動的に生成され、style.cssに結合されます。従って、通常htmlから他のcssを読み込む必要はありません。
+        外部ライブラリ提供のcss等、別途cssファイルを読み込みたい場合は、ビルドに組み込んでstyle.cssに結合できないか検討してください
+    -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-  <body>
+</head>
 
+<body>
 
-
+    <!-- アプリのルートタグです。通常変更は不要です -->
     <app></app>
 
-    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.2.1/riot+compiler.min.js"></script>
-    <script src="js/tags.js"></script>
+    <!--
+        スクリプトの読み込み。main.jsはsrc/js/index.jsから、tags.jsはsrc/tag/*.tagから自動的に生成されます。
+        riot.jsはindex.jsからimportされるため、個別の読み込みは不要です。
+        外部のライブラリを利用したい場合：
+        ・npmで提供されるモジュールについては原則npmからインストールし、riot.jsと同じ手順でindex.jsからimportしてください
+        ・CDNを利用する場合は、通常通りscriptタグを書いてください
+        ・npm,CDN共に利用できないライブラリを使う場合、ビルドの対応が必要になります（あまり推薦しないので初期状態では対応していません）
+    -->
     <script src="js/main.js"></script>
+    <script src="js/tags.js"></script>
+
     <script>
-        riot.mount('*');
+        // 初期化します。main.js,tags.jsの読み込み後に実行してください
+        App.init({});
     </script>
-  </body>
+
+</body>
+
 </html>
