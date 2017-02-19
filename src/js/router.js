@@ -15,6 +15,10 @@ route('/users', ()=>{
     riot.mount('content', 'users');
 });
 
+route('/starmap', ()=>{
+    riot.mount('content', 'starmap');
+});
+
 route((path)=>{
     riot.mount('content', 'greeting');
     console.log('unhandled routing [' + path + '] show top page instead');

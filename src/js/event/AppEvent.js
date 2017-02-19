@@ -13,6 +13,11 @@ const AppEvent = {
         ,CHANGED    :   'user_changed'
     }
 
+    ,STARMAP:{
+        REQUEST     :   'starmap_request'
+        ,LOADED     :   'starmap_loaded'
+    }
+
 };
 
 module.exports = AppEvent;
